@@ -1,0 +1,25 @@
+{
+  "name": "tp3_dai_piva_bottarini",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "Node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joacopiva/TP3_DAI_Piva_Bottarini.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joacopiva/TP3_DAI_Piva_Bottarini/issues"
+  },
+  "homepage": "https://github.com/joacopiva/TP3_DAI_Piva_Bottarini#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
