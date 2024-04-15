@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/joacopiva/TP3_DAI_Piva_Bottarini#readme",
   "dependencies": {
+    "axios": "^1.6.8",
     "cors": "^2.8.5",
     "express": "^4.19.2"
   }
