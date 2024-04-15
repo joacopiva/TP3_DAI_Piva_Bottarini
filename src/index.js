@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors"; 
 import {dividir, multiplicar,restar, sumar} from './modules/matematica.js';
 import {OMDBSearchByPage, OMDBSearchComplete, OMDBGetByImdbID } from './modules/omdb-wrapper.js';
+import Alumno from './models/Alumno.js';
 const app = express();
 const port = 3000;
 
@@ -79,19 +80,77 @@ app.get('/matematica/dividir', (req,res) =>
     res.send(division)
     res.status(200)
 })
-app.get('/omdb/searchbypage', (req,res) =>
+app.get('/omdb/searchbypage', async (req,res) =>
 {
-    let respuesta = null;
+   
 
-    let pelicula = req.query.search;
+    let pelicula = req.query.s;
     let pagina = req.query.p;
     console.log(pelicula)
     console.log(pagina)
 
-    respuesta = OMDBSearchByPage(pelicula, pagina);
+   let respuesta = await OMDBSearchByPage(pelicula, pagina);
 
     res.send(respuesta)
 })
+app.get('/omdb/searchcomplete', async (req,res) =>
+{
+    let respuesta;
+
+    let pelicula = req.query.s;
+    console.log(pelicula)
+
+    respuesta = await OMDBSearchComplete(pelicula);
+
+    res.send(respuesta)
+})
+app.get('/omdb/getbyomdbid', async (req,res) =>
+{
+    let respuesta;
+
+    let id = req.query.id;
+    console.log(id)
+
+    respuesta = await OMDBGetByImdbID(id);
+
+    res.send(respuesta)
+})
+
+const alumnosArray = [];
+alumnosArray.push(new Alumno("Esteban Dido" , "22888444", 20));
+alumnosArray.push(new Alumno("Matias Queroso", "28946255", 51));
+alumnosArray.push(new Alumno("Elba Calao" , "32623391", 18));
+
+app.get('/alumnos', (req,res) =>
+{
+    res.send(alumnosArray)
+    res.status(200)
+})
+
+function encuentraMiAlumno(alumno,dni) 
+{
+    return alumno.DNI === dni
+}
+
+app.get('/alumnos/:DNI', (req,res) =>
+{
+
+    let dni = req.params.DNI
+    console.log(dni)
+    let alumnoEncontrado = alumnosArray.find(alumno => encuentraMiAlumno(alumno,dni))
+
+    res.send(alumnoEncontrado)
+})
+
+app.post('/alumnos/:username/:DNI/:edad', (req,res) =>
+{
+    let username = req.params.username
+    let DNI = req.params.DNI
+    let edad = req.params.edad
+    arrayAlumnos.push(new Alumno(username, DNI, edad))
+})
+
+
 //
 // Inicio el Server y lo pongo a escuchar.
 //

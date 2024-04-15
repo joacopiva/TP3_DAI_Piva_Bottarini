@@ -13,13 +13,16 @@ const OMDBSearchByPage = async (searchText, page) => {
     
     const apiResponse = await axios.get(requestString);
     let datos = apiResponse.data;
+
     returnObject.respuesta = datos.Response;
     returnObject.cantidadTotal = datos.totalResults;
     returnObject.datos = datos.Search;
+    console.log(returnObject)
     return returnObject;
 };
+
 const OMDBSearchComplete = async (searchText) => {
-let returnObject = {
+let returnObject = {    
 respuesta : false,
 cantidadTotal : 0,
 datos : {}
