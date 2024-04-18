@@ -1,24 +1,28 @@
 /* Módulo OMDBWrapper*/
 import axios from "axios";
 const APIKEY = "d22189a8"; 
-const OMDBSearchByPage = async (searchText, page = 1) => {
+const OMDBSearchByPage = async (searchText, page) => {
+
     let returnObject = {
         respuesta : false,
         cantidadTotal : 0,
         datos : {}
     };
 
-    const requestString = `http://www.omdbapi.com/?apikey=${APIKEY}&s=${searchText}`;
+    const requestString = `http://www.omdbapi.com/?apikey=${APIKEY}&s=${searchText}&p=${page}`;
     
     const apiResponse = await axios.get(requestString);
     let datos = apiResponse.data;
+
     returnObject.respuesta = datos.Response;
     returnObject.cantidadTotal = datos.totalResults;
     returnObject.datos = datos.Search;
+    console.log(returnObject)
     return returnObject;
 };
+
 const OMDBSearchComplete = async (searchText) => {
-let returnObject = {
+let returnObject = {    
 respuesta : false,
 cantidadTotal : 0,
 datos : {}
